@@ -1,0 +1,32 @@
+:root {
+    height: 100vh;
+    width: 100vw;
+    --box-size: 500px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    height: var(--box-size);
+    width: var(--box-size);
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    background-color: white;
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cbd5e1;
+    font-family: Arial;
+    font-size: calc(var(--box-size) / 4);
+}
