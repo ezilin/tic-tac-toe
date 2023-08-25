@@ -1,7 +1,9 @@
 const Gameboard = (() => {
     let _board = null;
+    let round = 0;
     
     function create() {
+        round = 0;
         _board = new Array(3);
         for (let i = 0; i < _board.length; i++)
             _board[i] = new Array(null, null, null);
@@ -35,7 +37,7 @@ const Gameboard = (() => {
         return _board;
     }
 
-    return {getBoard, create, checkWin}
+    return {round, getBoard, create, checkWin}
 })();
 
 const Gamecontroller = (() => {
@@ -48,6 +50,37 @@ const Gamecontroller = (() => {
         marker: "O"
     }]
 
+    function _triggerMenu(winner) {
+        let body = document.querySelector("body");
+        let menuBackground = document.createElement("div");
+        menuBackground.classList.add("menuBackground");
+
+        let menu = document.createElement("div");
+        menu.classList.add("menu");
+
+        let proclamation = document.createElement("div");
+        proclamation.classList.add("proclamation");
+        if (winner == "Draw!")
+            proclamation.textContent = `${winner}`;
+        else
+            proclamation.textContent = `${winner} won!`;
+
+        let button = document.createElement("button");
+        button.classList.add("new-game");
+        button.textContent = "Start New Game";
+        button.addEventListener("click", () => {
+            let squares = document.querySelectorAll(".square");
+            squares.forEach(square => square.textContent = "");
+            body.removeChild(menuBackground);
+            run();
+        })
+
+        menu.appendChild(proclamation);
+        menu.appendChild(button);
+        menuBackground.appendChild(menu);
+        body.appendChild(menuBackground);
+    }
+
     function run() {
         Gameboard.create();
         let board = Gameboard.getBoard();
@@ -59,11 +92,15 @@ const Gamecontroller = (() => {
             for (let j = 0; j < board[0].length; j++) {
                 let square = document.querySelector(`.s${squareCount++}`);
                 square.addEventListener("click", e => {
+                    Gameboard.round++;
                     e.target.textContent = activePlayer.marker;
                     board[i][j] = activePlayer.marker;
                     if (Gameboard.checkWin()) {
                         winner = activePlayer.player;
-                        alert(winner);
+                        _triggerMenu(winner);
+                    }
+                    else if (Gameboard.round == 9) {
+                        _triggerMenu("Draw!")
                     }
                     activePlayer = activePlayer == _players[0] ? _players[1] : _players[0];
                 }, {once: true});

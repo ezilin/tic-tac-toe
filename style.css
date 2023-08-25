@@ -7,6 +7,11 @@
 body {
     height: 100%;
     width: 100%;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,4 +34,46 @@ body {
     background-color: #cbd5e1;
     font-family: Arial;
     font-size: calc(var(--box-size) / 4);
+}
+
+.menuBackground {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.menu {
+    height: 25%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    border: 4px solid black;
+    border-radius: 50px;
+}
+
+.proclamation {
+    height: 25%;
+    width: 100%;
+    font-weight: bold;
+    font-size: 60px;
+    text-align: center;
+}
+
+.new-game {
+    height: 25%;
+    width: 50%;
+    font-weight: bold;
+    font-size: 24px;
+    border-radius: 50px;
 }
